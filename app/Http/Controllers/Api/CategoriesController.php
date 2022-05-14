@@ -10,6 +10,6 @@ class CategoriesController extends Controller
 
 
     public function index(){
-    $categories = Category::get();
+    $categories = Category::select('id','created_at','name_'.app() -> getLocale() .' as name')->get();
     return response()->json($categories);
 }}

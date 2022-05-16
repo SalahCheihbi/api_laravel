@@ -20,6 +20,9 @@ class CategoriesController extends Controller
     public function getCategoryById(Request $request)
     {
         $category = Category::select()->find($request-> id);
+        if(!$category){
+            return $this->returnError('category not found', 'E001');
+        }
         return response()->json($category);
     }
 }

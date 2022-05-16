@@ -23,6 +23,6 @@ class CategoriesController extends Controller
         if(!$category){
             return $this->returnError('category not found', 'E001');
         }
-        return response()->json($category);
+        return $this->returnData('category', $category);
     }
 }

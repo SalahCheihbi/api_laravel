@@ -14,15 +14,23 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = Category::select('id', 'created_at', 'name_' . app()->getLocale() . ' as name')->get();
-        return response()->json($categories);
+        return $this-> returnData('categories',$categories,200);
     }
 
     public function getCategoryById(Request $request)
     {
-        $category = Category::select()->find($request-> id);
-        if(!$category){
+        $category = Category::select()->find($request->id);
+        if (!$category) {
             return $this->returnError('category not found', 'E001');
         }
         return $this->returnData('category', $category);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        Category::where('id',$request -> id) -> update(['active' =>$request ->  active]);
+
+
+        return $this->returnSuccessMessage(msg: 'category status changed successfully');
     }
 }

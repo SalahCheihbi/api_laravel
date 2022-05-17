@@ -14,7 +14,7 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = Category::select('id', 'created_at', 'name_' . app()->getLocale() . ' as name')->get();
-        return $this-> returnData('categories',$categories,200);
+        return $this->returnData('categories', $categories, 200);
     }
 
     public function getCategoryById(Request $request)
@@ -28,9 +28,7 @@ class CategoriesController extends Controller
 
     public function changeStatus(Request $request)
     {
-        Category::where('id',$request -> id) -> update(['active' =>$request ->  active]);
-
-
+        Category::where('id', $request->id)->update(['active' => $request->active]);
         return $this->returnSuccessMessage(msg: 'category status changed successfully');
     }
 }

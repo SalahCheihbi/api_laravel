@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\GeneralTrait;
 
+
 class AuthController extends Controller
 {
     use GeneralTrait;
@@ -20,11 +21,9 @@ class AuthController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            $code = $this->returnCodeAccordingToInput($validator);
-            return $this->returnValidationError($code, $validator);
+            $code = $this-> returnCodeAccordingToInput($validator);
+            return $this-> returnValidationError($code, $validator);
         }
-
-
         //login
 
 

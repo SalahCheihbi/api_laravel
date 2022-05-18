@@ -4,24 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Admin extends Model implements JWTSubject
+
+class Admin extends Authenticatable  implements JWTSubject
 {
+
     protected $table = 'admins';
 
     protected $fillable = [
-        'name', 'email', 'created_at', 'updated_at'
+        'name', 'email','password','created_at', 'updated_at'
     ];
 
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -41,4 +36,5 @@ class Admin extends Model implements JWTSubject
     {
         return [];
     }
+
 }

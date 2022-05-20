@@ -18,10 +18,16 @@ Route::group(['middleware' => ['api', 'checkPassword', 'changeLang'], 'namespace
 
 
 
+
         //invalidate the token  security side
 
         //broken access controller user enumeration
 
+    });
+    Route::group((['prefix' =>'user', 'middleware' => 'auth.guard:user-api']), function(){
+        Route::post('profile', function(){
+            return 'Only authenticated users can see this';
+        });
     });
 });
 

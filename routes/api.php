@@ -13,6 +13,15 @@ Route::group(['middleware' => ['api', 'checkPassword', 'changeLang'], 'namespace
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('/login', [AuthController::class, 'login']);
+
+        Route::post('logout', [AuthController::class, 'logout']) -> middleware(['auth.guard:admin-api']);
+
+
+
+        //invalidate the token  security side
+
+        //broken access controller user enumeration
+
     });
 });
 

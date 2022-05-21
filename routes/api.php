@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\Api\Admin\AuthController;
 use App\Http\Controllers\Api\CategoriesController;
-use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 
-Route::group(['middleware' => ['api','checkPassword','changeLang'], 'namespace' => 'Api'], function () {
+Route::group(['middleware' => ['api', 'checkPassword', 'changeLang'], 'namespace' => 'Api'], function () {
     Route::post('/get-main-categories', [CategoriesController::class, 'index']);
     Route::post('/get-category-byId', [CategoriesController::class, 'getCategoryById']);
     Route::post('change-category-status', [CategoriesController::class, 'changeStatus']);
@@ -28,6 +28,11 @@ Route::group(['middleware' => ['api','checkPassword','changeLang'], 'namespace' 
     Route::group((['prefix' =>'user', 'namespace'=> 'User']), function(){
         Route::post('login', [UserController::class, 'login']);
 
+    });
+    Route::group((['prefix' =>'user', 'middleware' => 'auth.guard:user-api']), function(){
+        Route::post('profile', function(){
+            return Auth::user();
+        });
     });
 });
 

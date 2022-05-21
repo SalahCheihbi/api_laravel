@@ -28,6 +28,7 @@ class AssignGuard
             try {
               //  $user = $this->auth->authenticate($request);  //check authenticated user
                 $user = JWTAuth::parseToken()->authenticate();
+
             } catch (TokenExpiredException $e) {
                 return  $this -> returnError('401','Unauthenticated user');
             } catch (JWTException $e) {
